@@ -22,29 +22,30 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 
 	// Check if either username or password is empty
 	if (empty($uname)) {
-		header("Location: index.php?error=User Name is required");
+		header("Location: /index.php?error=User Name is required");
 	    exit();
 	} else if(empty($pass)) {
-        header("Location: index.php?error=Password is required");
+        header("Location: /index.php?error=Password is required");
 	    exit();
 	} else {
-		// Hash the password for comparison
-        $pass = md5($pass);
-
         // Query to check if the provided credentials match a record in the database
-		$sql = "SELECT * FROM users WHERE user_name='$uname' AND password='$pass'";
-
+		$sql = "SELECT * FROM users WHERE user_name='$uname'";
 		$result = mysqli_query($conn, $sql);
+        
+		if (!$result) {
+            die("Query failed: " . mysqli_error($conn));
+        }
 
 		// Check if a matching record is found
 		if (mysqli_num_rows($result) === 1) {
 			$row = mysqli_fetch_assoc($result);
-            if ($row['user_name'] === $uname && $row['password'] === $pass) {
+            // Verify the password
+            if (password_verify($pass, $row['password'])) {
             	// Set session variables upon successful login
             	$_SESSION['user_name'] = $row['user_name'];
             	$_SESSION['name'] = $row['name'];
             	$_SESSION['id'] = $row['id'];
-            	header("Location: ..\homepage.php");
+            	header("Location: /homepage.php");
 		        exit();
             } else {
 				header("Location: /index.php?error=Incorrect Username or Password");

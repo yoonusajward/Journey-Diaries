@@ -5,12 +5,13 @@
             Journey Diaries
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="\homepage.php">Home</a>
                 </li>
@@ -21,21 +22,20 @@
                     <a class="nav-link" href="\pages\about.php">About</a>
                 </li>
             </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-light" href="#" id="logoutLink">Logout</a>
+                </li>
+            </ul>
         </div>
-
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#" id="logoutLink">Logout</a>
-            </li>
-        </ul>
     </div>
 </nav>
 
 <script>
-    document.getElementById("logoutLink").addEventListener("click", function(e) {
-        e.preventDefault();
-        if (confirm("Are you sure you want to logout?")) {
-            window.location.href = "/login/logout.php"; // Redirect to the logout script
-        }
-    });
+document.getElementById("logoutLink").addEventListener("click", function(e) {
+    e.preventDefault();
+    if (confirm("Are you sure you want to logout?")) {
+        window.location.href = "/login/logout.php";
+    }
+});
 </script>

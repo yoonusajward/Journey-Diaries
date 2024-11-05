@@ -6,100 +6,110 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
 ?>
 
 <script async src="https://cse.google.com/cse.js?cx=1739d3cf32e47407e">
-        </script>
-        <div class="gcse-search"></div>
-        
+</script>
+<div class="gcse-search"></div>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
-    <link rel="stylesheet" href="/path/to/your/css/style.css"> <!-- Add your custom CSS here -->
+    <link rel="stylesheet" href="/path/to/your/css/style.css">
 
     <!-- Add CSS for animations -->
     <style>
-        /* Fade-in animation for the welcome message */
-        .welcome-message {
+    /* Fade-in animation for the welcome message */
+    .welcome-message {
+        opacity: 0;
+        animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    /* Slide-in animation for blog cards */
+    .blog-card {
+        transform: translateY(100%);
+        animation: slideIn 1s ease-in-out forwards;
+    }
+
+    /* Add styles for the background container */
+    .background-container {
+        background-image: url('../img/T1.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 500px;
+        /* Adjust the height as needed */
+        position: relative;
+        /* Add this to make child elements position relative to this container */
+    }
+
+    /* Add styles for the background image overlay */
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        /* Adjust the overlay color and opacity */
+        z-index: -1;
+        /* Place the overlay behind other content */
+    }
+
+    /* Center the welcome message horizontally and vertically */
+    .welcome-message {
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 60px;
+        opacity: 0;
+        /* Start with zero opacity */
+        animation: fadeIn 2s ease-in-out forwards bounce 1s;
+    }
+
+    /* Add scaleIn animation for the welcome message */
+    @keyframes scaleIn {
+        from {
+            transform: scale(0.8);
+        }
+
+        to {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
             opacity: 0;
-            animation: fadeIn 1s ease-in-out forwards;
         }
 
-        /* Slide-in animation for blog cards */
-        .blog-card {
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideIn {
+        from {
             transform: translateY(100%);
-            animation: slideIn 1s ease-in-out forwards;
         }
 
-        /* Add styles for the background container */
-        .background-container {
-            background-image: url('../img/T1.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            min-height: 500px; /* Adjust the height as needed */
-            position: relative; /* Add this to make child elements position relative to this container */
+        to {
+            transform: translateY(0);
         }
+    }
 
-        /* Add styles for the background image overlay */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3); /* Adjust the overlay color and opacity */
-            z-index: -1; /* Place the overlay behind other content */
+    /* Add bounce animation for the welcome message */
+    @keyframes bounce {
+        to {
+            transform: translateY(-10px);
         }
-
-        /* Center the welcome message horizontally and vertically */
-        .welcome-message {
-            position: absolute;
-            top: 70%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 60px;
-            opacity: 0; /* Start with zero opacity */
-            animation: fadeIn 2s ease-in-out forwards bounce 1s;
-        }
-
-        /* Add scaleIn animation for the welcome message */
-        @keyframes scaleIn {
-            from {
-                transform: scale(0.8);
-            }
-            to {
-                transform: scale(1);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-
-        /* Add bounce animation for the welcome message */
-        @keyframes bounce {
-            to {
-                transform: translateY(-10px);
-            }
-        }
+    }
     </style>
 </head>
+
 <body>
 
     <!-- Add the "background-container" class for the background image -->
@@ -108,7 +118,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
         <div class="overlay"></div>
         <div class="container">
             <!-- Add the "welcome-message" class for the fade-in animation -->
-            <h1 class="text-center welcome-message">Hello, <?php echo $_SESSION['name']; ?></h1>
+            <h1 class="text-center welcome-message">Welcome to Travel Blog Website</h1>
         </div>
     </div>
 
@@ -140,23 +150,24 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
     </div>
     <!-- JavaScript to trigger the animations -->
     <script>
-        // Trigger the animations when the page is loaded
-        window.addEventListener('load', function () {
-            const welcomeMessage = document.querySelector('.welcome-message');
-            const blogCards = document.querySelectorAll('.blog-card');
+    // Trigger the animations when the page is loaded
+    window.addEventListener('load', function() {
+        const welcomeMessage = document.querySelector('.welcome-message');
+        const blogCards = document.querySelectorAll('.blog-card');
 
+        setTimeout(() => {
+            welcomeMessage.style.animationPlayState = 'running';
+        }, 500);
+
+        blogCards.forEach((card, index) => {
             setTimeout(() => {
-                welcomeMessage.style.animationPlayState = 'running';
-            }, 500);
-
-            blogCards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.style.animationPlayState = 'running';
-                }, 1000 + index * 200);
-            });
+                card.style.animationPlayState = 'running';
+            }, 1000 + index * 200);
         });
+    });
     </script>
 </body>
+
 </html>
 
 <?php
